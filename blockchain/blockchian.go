@@ -47,6 +47,12 @@ type BlockChainIterator struct {
 	Database    *badger.DB
 }
 
+func (chain *BlockChain) Iterator() *BlockChainIterator {
+	iterator := BlockChainIterator{chain.LastHash, chain.Database}
+
+	return &iterator
+}
+
 // -------------------- ------------ ---
 func InitBlockChain() *BlockChain {
 	var lastHash []byte
