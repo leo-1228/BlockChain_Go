@@ -66,9 +66,9 @@ func Genesis() *Block {
 	return CreateBlock("Genesis", []byte{})
 }
 
-func InitBlockChain() *BlockChain {
-	return &BlockChain{[]*Block{Genesis()}}
-}
+// func InitBlockChain() *BlockChain {
+// 	return &BlockChain{[]*Block{Genesis()}}
+// }
 
 func Handle(err error) {
 	if err != nil {
