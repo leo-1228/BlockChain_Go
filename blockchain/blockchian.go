@@ -41,16 +41,37 @@ func (chain *BlockChain) AddBlock(data string) {
 	Handle(err)
 }
 
+func (chain *BlockChain) Iterator() *BlockChainIterator {
+	iterator := BlockChainIterator{chain.LastHash, chain.Database}
+
+	return &iterator
+}
+
 // -------------- --------- -
 type BlockChainIterator struct {
 	CurrentHash []byte
 	Database    *badger.DB
 }
 
-func (chain *BlockChain) Iterator() *BlockChainIterator {
-	iterator := BlockChainIterator{chain.LastHash, chain.Database}
+func (iterator *BlockChainIterator) Next() *Block {
+	var block *Block
 
-	return &iterator
+	err := iterator.Database.View(func(txn *badger.Txn) error {
+		item, err := txn.Get(iterator.CurrentHash)
+		Handle(err)
+
+		err = item.Value(func(val []byte) error {
+			block = Deserialize(val)
+			return nil
+		})
+		Handle(err)
+		return err
+	})
+	Handle(err)
+
+	iterator.CurrentHash = block.PrevHash
+
+	return block
 }
 
 // -------------------- ------------ ---
