@@ -38,9 +38,9 @@ func Deserialize(data []byte) *Block {
 
 //----- --  ------- --- -
 
-type BlockChain struct {
-	Blocks []*Block
-}
+// type BlockChain struct {
+// 	Blocks []*Block
+// }
 
 func (chain *BlockChain) AddBlock(data string) {
 	prevBlock := chain.Blocks[len(chain.Blocks)-1]
