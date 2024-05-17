@@ -1,12 +1,27 @@
 package blockchain
 
-import "log"
+import (
+	"bytes"
+	"encoding/gob"
+	"log"
+)
 
 type Block struct {
 	Hash     []byte
 	Data     []byte
 	PrevHash []byte
 	Nonce    int
+}
+
+func (b *Block) Serialize() []byte {
+	var res bytes.Buffer
+	encoder := gob.NewEncoder(&res)
+
+	err := encoder.Encode(b)
+
+	Handle(err)
+
+	return res.Bytes()
 }
 
 //----- --  ------- --- -
