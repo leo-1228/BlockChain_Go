@@ -14,6 +14,21 @@ type ProofOfWork struct {
 	Target *big.Int
 }
 
+func (pow *ProofOfWork) InitNonce(nonce int) []byte {
+	data := bytes.Join(
+		[][]byte{
+			pow.Block.PrevHash,
+			pow.Block.Data,
+			ToHex(int64(nonce)),
+			ToHex(int64(Difficulty)),
+		},
+		[]byte{},
+	)
+	return data
+}
+
+// --------------------- - -- ---------- --------
+
 func NewProofOfWork(b *Block) *ProofOfWork {
 	target := big.NewInt(1)
 	target.Lsh(target, uint(256-Difficulty))
