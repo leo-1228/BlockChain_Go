@@ -1,5 +1,7 @@
 package blockchain
 
+import "log"
+
 type Block struct {
 	Hash     []byte
 	Data     []byte
@@ -39,4 +41,10 @@ func Genesis() *Block {
 
 func InitBlockChain() *BlockChain {
 	return &BlockChain{[]*Block{Genesis()}}
+}
+
+func Handle(err error) {
+	if err != nil {
+		log.Panic(err)
+	}
 }
