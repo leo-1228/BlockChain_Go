@@ -24,6 +24,18 @@ func (b *Block) Serialize() []byte {
 	return res.Bytes()
 }
 
+func Deserialize(data []byte) *Block {
+	var block Block
+
+	decoder := gob.NewDecoder(bytes.NewReader(data))
+
+	err := decoder.Decode(&block)
+
+	Handle(err)
+
+	return &block
+}
+
 //----- --  ------- --- -
 
 type BlockChain struct {
