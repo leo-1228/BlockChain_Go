@@ -41,8 +41,13 @@ func (chain *BlockChain) AddBlock(data string) {
 	Handle(err)
 }
 
-//-------------- --------- -
+// -------------- --------- -
+type BlockChainIterator struct {
+	CurrentHash []byte
+	Database    *badger.DB
+}
 
+// -------------------- ------------ ---
 func InitBlockChain() *BlockChain {
 	var lastHash []byte
 
