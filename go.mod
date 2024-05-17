@@ -1,3 +1,3 @@
-module github.com/nheingit/learnBlockChain
+module blockchain-go
 
 go 1.22.2
